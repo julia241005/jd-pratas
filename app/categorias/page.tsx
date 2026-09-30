@@ -19,10 +19,8 @@ export default function Home() {
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#f8f6f3] text-[#1c1c1c]">
-      {/* HEADER */}
       <Header />
 
-      {/* HERO */}
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-16 md:py-24">
         <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
           <div>
@@ -47,7 +45,6 @@ export default function Home() {
             </a>
           </div>
 
-          {/* FOTO PRINCIPAL */}
           <div className="flex aspect-square items-center justify-center border border-[#d5d1cb] bg-white">
             <div className="px-4 text-center">
               <p className="text-[10px] tracking-[0.3em] text-[#aaa49d] sm:text-xs">
@@ -62,11 +59,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* MAIS VENDIDOS */}
-      <section
-        id="mais-vendidos"
-        className="border-y border-[#dedbd6] bg-white"
-      >
+      <section id="mais-vendidos" className="border-y border-[#dedbd6] bg-white">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16">
           <div className="mb-8 sm:mb-10">
             <p className="text-[10px] tracking-[0.35em] text-[#a58b8b] sm:text-xs">
@@ -97,6 +90,7 @@ export default function Home() {
             {bestSellers.map((product) => (
               <ProductCard
                 key={product.id}
+                id={product.id}
                 name={product.name}
                 material={product.material}
                 price={product.promoPrice || product.price}
@@ -107,7 +101,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* NOVIDADES */}
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16">
         <div className="mb-8 sm:mb-10">
           <p className="text-[10px] tracking-[0.35em] text-[#a58b8b] sm:text-xs">
@@ -138,6 +131,7 @@ export default function Home() {
           {newProducts.map((product) => (
             <ProductCard
               key={product.id}
+              id={product.id}
               name={product.name}
               material={product.material}
               price={product.promoPrice || product.price}
@@ -147,11 +141,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CATEGORIAS */}
-      <section
-        id="categorias"
-        className="border-y border-[#dedbd6] bg-white"
-      >
+      <section id="categorias" className="border-y border-[#dedbd6] bg-white">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16">
           <div className="mb-8 text-center sm:mb-10">
             <p className="text-[10px] tracking-[0.35em] text-[#a58b8b] sm:text-xs">
@@ -163,23 +153,18 @@ export default function Home() {
             </h2>
 
             <p className="mx-auto mt-3 max-w-xl text-xs leading-6 text-[#68635e] sm:text-sm">
-              Explore nossas categorias e encontre a joia ideal para cada
-              momento.
+              Explore nossas categorias e encontre a joia ideal para cada momento.
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3">
             {categories.map((category) => (
-              <CategoryCard
-                key={category}
-                name={category}
-              />
+              <CategoryCard key={category} name={category} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* PRODUTOS EM DESTAQUE */}
       <section
         id="produtos"
         className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16"
@@ -213,6 +198,7 @@ export default function Home() {
           {featuredProducts.map((product) => (
             <ProductCard
               key={product.id}
+              id={product.id}
               name={product.name}
               material={product.material}
               price={product.promoPrice || product.price}
@@ -222,11 +208,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SOBRE */}
-      <section
-        id="sobre"
-        className="border-y border-[#dedbd6] bg-white"
-      >
+      <section id="sobre" className="border-y border-[#dedbd6] bg-white">
         <div className="mx-auto max-w-5xl px-4 py-16 text-center sm:px-6 sm:py-20">
           <p className="text-[10px] tracking-[0.35em] text-[#a58b8b] sm:text-xs">
             SOBRE A JD
@@ -237,14 +219,12 @@ export default function Home() {
           </h2>
 
           <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-[#68635e] sm:mt-6 sm:text-base">
-            A JD Pratas nasceu para oferecer peças delicadas, elegantes
-            e atemporais, escolhidas para fazer parte dos momentos
-            especiais de cada pessoa.
+            A JD Pratas nasceu para oferecer peças delicadas, elegantes e atemporais,
+            escolhidas para fazer parte dos momentos especiais de cada pessoa.
           </p>
         </div>
       </section>
 
-      {/* CONTATO */}
       <section
         id="contato"
         className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16"
@@ -260,8 +240,8 @@ export default function Home() {
             </h2>
 
             <p className="mt-5 max-w-md text-sm leading-7 text-[#68635e]">
-              Em breve você poderá entrar em contato conosco pelo
-              WhatsApp e acompanhar todas as novidades pelo Instagram.
+              Em breve você poderá entrar em contato conosco pelo WhatsApp e
+              acompanhar todas as novidades pelo Instagram.
             </p>
           </div>
 
@@ -272,9 +252,7 @@ export default function Home() {
                   INSTAGRAM
                 </p>
 
-                <p className="mt-2 text-sm">
-                  @seuinstagram
-                </p>
+                <p className="mt-2 text-sm">@seuinstagram</p>
               </div>
 
               <div>
@@ -282,22 +260,17 @@ export default function Home() {
                   WHATSAPP
                 </p>
 
-                <p className="mt-2 text-sm">
-                  (00) 00000-0000
-                </p>
+                <p className="mt-2 text-sm">(00) 00000-0000</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer className="border-t border-[#dedbd6] bg-[#1c1c1c] text-white">
         <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-8 sm:px-6 sm:py-10 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="font-serif text-xl">
-              JD
-            </p>
+            <p className="font-serif text-xl">JD</p>
 
             <p className="mt-1 text-[10px] tracking-[0.25em] text-[#bcb7b1]">
               PRATAS
