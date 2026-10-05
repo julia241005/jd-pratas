@@ -1,87 +1,48 @@
-export type Product = {
-  id: string;
+export interface Product {
+  slug: string;
   name: string;
-  price: string;
-  promoPrice?: string;
-  category: string;
-  subcategory?: string;
-  material: string;
-  description: string;
-  sku: string;
+  price?: number;
   image?: string;
-  images?: string[];
-  available: boolean;
-  featured: boolean;
-  newProduct: boolean;
-  bestSeller: boolean;
-};
+  material?: string;
+  category: string;
+  description?: string;
+}
 
 export const products: Product[] = [
   {
-    id: "produto-001",
-    name: "Nome do produto",
-    price: "R$ 00,00",
-    category: "Anéis",
-    subcategory: "",
-    material: "Prata 925",
-    description: "",
-    sku: "",
-    image: "",
-    images: [],
-    available: true,
-    featured: true,
-    newProduct: true,
-    bestSeller: false,
-  },
-
-  {
-    id: "produto-002",
-    name: "Nome do produto",
-    price: "R$ 00,00",
-    category: "Brincos",
-    subcategory: "",
-    material: "Prata 925",
-    description: "",
-    sku: "",
-    image: "",
-    images: [],
-    available: true,
-    featured: true,
-    newProduct: true,
-    bestSeller: false,
-  },
-
-  {
-    id: "produto-003",
-    name: "Nome do produto",
-    price: "R$ 00,00",
+    slug: "1334-colar-elos-com-2-zirconias-elegance",
+    name: "Colar Elos com 2 Zircônias Elegance",
+    price: undefined,
+    image: undefined,
+    material: "Folhado a Prata",
     category: "Colares",
-    subcategory: "",
-    material: "Prata 925",
-    description: "",
-    sku: "",
-    image: "",
-    images: [],
-    available: true,
-    featured: true,
-    newProduct: false,
-    bestSeller: true,
+    description: "Descrição do produto será adicionada quando recebermos as informações finais da peça.",
   },
-
   {
-    id: "produto-004",
-    name: "Nome do produto",
-    price: "R$ 00,00",
-    category: "Pulseiras",
-    subcategory: "",
-    material: "Prata 925",
-    description: "",
-    sku: "",
-    image: "",
-    images: [],
-    available: true,
-    featured: false,
-    newProduct: false,
-    bestSeller: true,
+    slug: "1201-colar-seja-forte-e-corajosa",
+    name: "Colar Seja Forte e Corajosa com Ponto de Luz",
+    price: undefined,
+    image: undefined,
+    material: "Folhado a Prata",
+    category: "Colares",
+    description: "Descrição do produto será adicionada quando recebermos as informações finais da peça.",
+  },
+  {
+    slug: "5031-anel-color-pedra-gota",
+    name: "Anel Color Todo Cravado Pedra Gota",
+    price: undefined,
+    image: undefined,
+    material: "Folhado a Prata",
+    category: "Anéis",
+    description: "Descrição do produto será adicionada quando recebermos as informações finais da peça.",
+  },
+  {
+    slug: "4002-duplinha-de-argolas",
+    name: "Duplinha de Argolas Click Corações P e M",
+    price: undefined,
+    image: undefined,
+    material: "Folhado a Prata",
+    category: "Brincos",
+    description: "Descrição do produto será adicionada quando recebermos as informações finais da peça.",
   },
 ];

@@ -1,27 +1,7 @@
 import ProductCard from "@/components/ProductCard/ProductCard";
 import { products } from "@/data/products";
 
-export default async function ProdutosPage({
-  searchParams,
-}: {
-  searchParams: Promise<{
-    categoria?: string;
-  }>;
-}) {
-  const params = await searchParams;
-  const categoria = params.categoria;
-
-  const produtosFiltrados = categoria
-    ? products.filter(
-        (product) =>
-          product.category.toLowerCase() ===
-          categoria.toLowerCase()
-      )
-    : products;
-
-  const titulo =
-    categoria || "Todos os produtos";
-
+export default function ProdutosPage() {
   return (
     <main className="min-h-screen bg-white">
       <section className="border-b border-[#e9e9e9] bg-[#fafafa]">
@@ -31,7 +11,7 @@ export default async function ProdutosPage({
           </p>
 
           <h1 className="mt-3 text-3xl font-light tracking-wide text-[#222] sm:text-4xl">
-            {titulo}
+            Todos os produtos
           </h1>
 
           <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-[#777]">
@@ -41,23 +21,22 @@ export default async function ProdutosPage({
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-16">
-        {produtosFiltrados.length > 0 ? (
+        {products.length > 0 ? (
           <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4">
-            {produtosFiltrados.map((product) => (
+            {products.map((product) => (
               <ProductCard
                 key={product.slug}
                 id={product.slug}
                 name={product.name}
                 image={product.image}
                 material={product.material}
-                price={product.price}
               />
             ))}
           </div>
         ) : (
           <div className="py-20 text-center">
             <p className="text-sm text-[#777]">
-              Nenhum produto encontrado nesta categoria.
+              Nenhum produto cadastrado.
             </p>
           </div>
         )}

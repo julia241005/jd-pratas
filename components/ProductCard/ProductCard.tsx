@@ -1,57 +1,174 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+
 type ProductCardProps = {
+  id: string;
   name: string;
-  material: string;
-  price: string;
+  material?: string;
+  price?: number;
   image?: string;
 };
 
+type CartItem = {
+  id: string;
+  name: string;
+  price: number;
+  image?: string;
+  quantity: number;
+};
+
 export default function ProductCard({
+  id,
   name,
   material,
   price,
   image,
 }: ProductCardProps) {
+  const [adicionado, setAdicionado] = useState(false);
+
+  function adicionarAoCarrinho() {
+    try {
+      const dadosSalvos = localStorage.getItem("jd-pratas-cart");
+
+      let carrinhoAtual: CartItem[] = [];
+
+      if (dadosSalvos) {
+        try {
+          carrinhoAtual = JSON.parse(dadosSalvos);
+
+          if (!Array.isArray(carrinhoAtual)) {
+            carrinhoAtual = [];
+          }
+        } catch {
+          carrinhoAtual = [];
+        }
+      }
+
+      const produtoExistente = carrinhoAtual.find(
+        (item) => item.id === id
+      );
+
+      let novoCarrinho: CartItem[];
+
+      if (produtoExistente) {
+        novoCarrinho = carrinhoAtual.map((item) =>
+          item.id === id
+            ? {
+                ...item,
+                quantity: item.quantity + 1,
+              }
+            : item
+        );
+      } else {
+        novoCarrinho = [
+          ...carrinhoAtual,
+          {
+            id,
+            name,
+            price: price ?? 0,
+            image,
+            quantity: 1,
+          },
+        ];
+      }
+
+      localStorage.setItem(
+        "jd-pratas-cart",
+        JSON.stringify(novoCarrinho)
+      );
+
+      window.dispatchEvent(new Event("cart-updated"));
+
+      setAdicionado(true);
+
+      setTimeout(() => {
+        setAdicionado(false);
+      }, 1500);
+    } catch (error) {
+      console.error(
+        "Erro ao adicionar produto ao carrinho:",
+        error
+      );
+    }
+  }
+
   return (
-    <article className="group min-w-0">
-      {/* FOTO DO PRODUTO */}
-      <div className="relative flex aspect-square items-center justify-center overflow-hidden border border-[#dedbd6] bg-white transition duration-300 group-hover:border-[#b8b5b0]">
-        {image ? (
-          <img
-            src={image}
-            alt={name}
-            className="h-full w-full object-cover"
-          />
-        ) : (
-          <div className="px-3 text-center">
-            <p className="text-[9px] tracking-[0.2em] text-[#aaa49d] sm:text-xs">
-              FOTO DO PRODUTO
-            </p>
-
-            <p className="mt-2 text-[10px] text-[#c0bbb4] sm:text-xs">
-              Espaço reservado
-            </p>
-          </div>
-        )}
-
-        {/* MARCA D'ÁGUA */}
-        <div className="absolute bottom-2 right-2 text-[7px] tracking-[0.15em] text-[#aaa49d] opacity-70 sm:bottom-3 sm:right-3 sm:text-[8px]">
-          JD PRATAS
+    <article className="group flex h-full flex-col bg-white">
+      <Link
+        href={`/produtos/${id}`}
+        className="block"
+      >
+        <div className="relative aspect-square w-full overflow-hidden bg-[#f8f8f8]">
+          {image ? (
+            <Image
+              src={image}
+              alt={name}
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 280px"
+              className="object-cover transition duration-500 group-hover:scale-105"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-[#aaa]">
+                JD Pratas
+              </span>
+            </div>
+          )}
         </div>
-      </div>
 
-      {/* INFORMAÇÕES DO PRODUTO */}
-      <div className="pt-3 sm:pt-4">
-        <h3 className="truncate font-serif text-sm sm:text-lg">
-          {name}
-        </h3>
+        <div className="pt-4">
+          <div className="min-h-[40px]">
+            <h3 className="line-clamp-2 text-xs font-medium uppercase leading-5 tracking-wide text-[#222]">
+              {name}
+            </h3>
+          </div>
 
-        <p className="mt-1 text-[11px] text-[#77716b] sm:text-sm">
-          {material}
-        </p>
+          <div className="mt-1 min-h-[16px]">
+            {material && (
+              <p className="text-[10px] uppercase tracking-wider text-[#888]">
+                {material}
+              </p>
+            )}
+          </div>
 
-        <p className="mt-2 text-xs font-medium sm:mt-3 sm:text-sm">
-          {price}
-        </p>
+          <div className="mt-3 min-h-[20px]">
+            {price !== undefined ? (
+              <p className="text-sm font-medium text-[#222]">
+                R$ {price.toFixed(2).replace(".", ",")}
+              </p>
+            ) : (
+              <p className="text-xs text-[#999]">
+                Preço em breve
+              </p>
+            )}
+          </div>
+        </div>
+      </Link>
+
+      <div className="mt-auto pt-4">
+        <button
+          type="button"
+          onClick={adicionarAoCarrinho}
+          className="flex min-h-[42px] w-full items-center justify-center gap-2 bg-[var(--pink-dark)] px-4 text-[10px] font-medium uppercase tracking-[0.15em] text-white transition-all duration-200 hover:opacity-90"
+        >
+          {adicionado ? (
+            <>
+              <span
+                className="flex h-4 w-4 items-center justify-center rounded-full border border-white text-[10px]"
+                aria-hidden="true"
+              >
+                ✓
+              </span>
+
+              <span>Adicionado ao carrinho</span>
+            </>
+          ) : (
+            "Adicionar ao carrinho"
+          )}
+        </button>
       </div>
     </article>
   );
